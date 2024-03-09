@@ -12,3 +12,31 @@ Else if ph is less than 7, output “Acidic”.
 Else, output “Neutral”.
 */
 
+
+const readline = require('readline')
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+function askQuestion(query) {
+    return new Promise(resolve => rl.question(query, ans => resolve(ans)))
+}
+
+async function checkPHLevel(ph) {
+    if (ph > 7) {
+        console.log('Basic');
+    } else if (ph < 7) {
+        console.log('Acidic');
+    } else {
+        console.log('Neutral');
+    }
+}
+
+async function main() {
+    const ph = await askQuestion('Enter a pH level between 0 and 14: ')
+    rl.close();
+    checkPHLevel(ph);
+}
+main();
