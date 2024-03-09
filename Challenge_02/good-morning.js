@@ -15,10 +15,14 @@ let hour = date.getHours();
 
 if (hour > 4  &&  hour < 12) {
     console.log("Good morning 🌞");
+    console.log("Wake up, brush your teeth, and eat breakfast.");
 } else if (hour >= 12 && hour < 18) {
     console.log("Good afternoon 🌤");
+    console.log("Time to eat lunch and take a nap.");
 } else if (hour >= 18 && hour < 9) {
     console.log("Good evening 🌙");
+    console.log("Time to eat dinner and read book.");
 } else {
     console.log("Good night 🌚");
+    console.log("Time to go to bed.");
 }
