@@ -19,4 +19,34 @@
 
 */
 
+// Defining the amount of money in each currency to USD
+const EX_RATE_YUAN = 0.14;      // China
+const EX_RATE_YEN = 0.0068; // Japan
+const EX_RATE_WON = 0.00076;    // South-Korea
 
+const readline = require('readline')
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+function askQuestion(query) {
+    return new Promise(resolve => rl.question(query, ans => resolve(ans)))
+}
+
+async function convertCurrency(yuan, yen, won) {
+    const totalUSD = (yuan * EX_RATE_YUAN) + (yen * EX_RATE_YEN) + (won * EX_RATE_WON);
+    console.log(totalUSD);
+}
+
+async function main() {
+    const yuan = await askQuestion('What do you have left in yuan? ')
+    const yen = await askQuestion('What do you have left in yen? ')
+    const won = await askQuestion('What do you have left in won? ')
+    console.log(`You have ${yuan} left in yuan, ${yen} left in yen, and ${won} left in won.`);
+    rl.close();
+    convertCurrency(yuan, yen, won);
+}
+
+main();
