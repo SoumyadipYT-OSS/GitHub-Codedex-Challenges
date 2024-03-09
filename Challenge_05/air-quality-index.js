@@ -27,9 +27,20 @@ async function getLocation() {
     }
 }
 
+async function getAQI(city, country) {
+    try {
+        const response = await axios.get(`https://api.openaq.org/v1/latest?country=${country}&city=${city}`);
+        const aqi = response.data.results[0].measurements[0].value;
+        return aqi;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 async function main() {
     const location = await getLocation();
-    console.log(`The location based on your IP is ${location.city}, ${location.region}, ${location.country}`);
+    const aqi = await getAQI(location.city, location.country_code);
+    console.log(`The AQI in ${location.city}, ${location.region}, ${location.country} is ${aqi}`);
 }
 
 main();
