@@ -29,7 +29,7 @@ const readline = require('readline')
 
 
 const rl = readline.createInterface({
-    input: process.input,
+    input: process.stdin,
     output: process.output
 })
 
@@ -46,15 +46,17 @@ async function magic8Ball(question) {
 
     const index = Math.floor(Math.random() * answers.length);
     const response = answers[index];
-    
+
     console.log(`Question: ${question}`);
     console.log(`Magic 8 Ball: ${response}`);
 }
 
 
 async function main() {
+    console.log('Ask the Magic 8 Ball a question')
     const Question = await askQuestion('Question: ')
     rl.close()
     magic8Ball(Question)
 }
+
 main();
