@@ -46,4 +46,5 @@ async function main() {
     rl.close();
     playGame(userChoiceLower);
 }
+
 main();
