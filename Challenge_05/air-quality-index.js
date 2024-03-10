@@ -15,32 +15,38 @@ Else if aqi is between 201 and 300, print “Very Unhealthy”.
 Else, print “Hazardous”.
 */
 
-const axios = require('axios');
 
-async function getLocation() {
-    try {
-        const response = await axios.get('https://ipapi.co/json/');
-        const location = response.data;
-        return location;
-    } catch (error) {
-        console.error(error);
+function printAQIMessage(aqi) {
+    if (aqi >= 0 && aqi <= 50) {
+        console.log("Good");
+    } if (aqi >= 51 && aqi <= 100) {
+        console.log("Moderate");
+    } if (aqi >= 101 && aqi <= 150) {
+        console.log("Unhealthy (Sensitive Groups)");
+    } if (aqi >= 151 && aqi <= 200) {
+        console.log("Unhealthy");
+    } if (aqi >= 201 && aqi <= 300) {
+        console.log("Very Unhealthy");
+    } if (aqi > 300) {
+        console.log("Hazardous");
     }
 }
 
-async function getAQI(city, country) {
-    try {
-        const response = await axios.get(`https://api.openaq.org/v1/latest?country=${country}&city=${city}`);
-        const aqi = response.data.results[0].measurements[0].value;
-        return aqi;
-    } catch (error) {
-        console.error(error);
-    }
+
+const readline = require('readline')
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+function askQuestion(query) {
+    return new Promise(resolve => rl.question(query, ans => resolve(ans)))
 }
 
 async function main() {
-    const location = await getLocation();
-    const aqi = await getAQI(location.city, location.country_code);
-    console.log(`The AQI in ${location.city}, ${location.region}, ${location.country} is ${aqi}`);
+    const aqi = await askQuestion('Enter the Air Quality Index (AQI) in your area: ')
+    rl.close();
+    printAQIMessage(aqi);
 }
-
 main();
